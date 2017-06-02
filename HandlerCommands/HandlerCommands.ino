@@ -58,11 +58,13 @@ void printWritedCommand() {
 void hablerCommands() {
   printWritedCommand();
   switch (getIDCommand(message[0])) {
+    //Command help
     case 0: {
         Serial.println(HELP_COMMAND);
       }
       break;
     case 1: {
+      if (message[1]=="") message[1]="1";
        for (int i=0;i<message[1].toInt();i++){
         digitalWrite(13,1);
          delay(100);
