@@ -24,6 +24,7 @@ void setup() {
   registerCommand("help");
   registerCommand("blink");
   registerCommand("version");
+  registerCommand("picture");
 
 }
 
@@ -76,6 +77,15 @@ void hablerCommands() {
       break;
     case 2: {
         Serial.println(VERSION_COMMAND);
+      }
+      break;
+      case 3:{
+        for (int i=0;i<=50;i++){
+          for (int j=0;j<=50;j++){
+            Serial.print("*");
+          }
+          Serial.println("");
+        }
       }
       break;
     default: Serial.println(UNDEFINED_COMMAND + message[0] + "»");
