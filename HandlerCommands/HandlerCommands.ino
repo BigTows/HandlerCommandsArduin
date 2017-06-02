@@ -1,7 +1,7 @@
 /**
    Constats for return after handler command
 */
-const String HELP_COMMAND = "Hi, list commands:\nblink <count> - Blink pin 13 :) \nversion - view version handler";
+const String HELP_COMMAND = "Hi, list commands:\nblink <count> - Blink pin 13 :) \nversion - view version handler\npicture - print PICTURE WOOWOWOWOOW";
 const String VERSION_COMMAND = "Version handler: 0.2";
 const String UNDEFINED_COMMAND = "Undefined command «";
 
@@ -48,7 +48,7 @@ int getIDCommand(String name) {
 }
 
 void printWritedCommand() {
-  Serial.print("/:");
+  Serial.print(":/");
   for (int i = 0; i <= countSpace; i++) {
     Serial.print(message[i] + " ");
   }
@@ -68,9 +68,9 @@ void hablerCommands() {
       if (message[1]=="") message[1]="1";
        for (int i=0;i<message[1].toInt();i++){
         digitalWrite(13,1);
-         delay(100);
+         delay(250);
         digitalWrite(13,0);
-        delay(50);
+        delay(100);
        }
        Serial.println("I blinked");
       }
@@ -80,12 +80,28 @@ void hablerCommands() {
       }
       break;
       case 3:{
-        for (int i=0;i<=50;i++){
-          for (int j=0;j<=50;j++){
-            Serial.print("*");
+       /* String text = "";
+        String t = "";
+        for (int i=0;i<=12;i++){
+          text+=" ";
+          for (int j=0;j<=1;j++){
+            t+="*";
+            Serial.print(text+t);
           }
+
           Serial.println("");
         }
+         t="";
+         for (int i=12;i>=0;i--){
+          text[i-1]="";
+          for (int j=1;j>=0;j--){
+             t+="*";
+            Serial.print(text+t);
+          }
+
+          Serial.println("");
+        }
+        Serial.println("end print");*/
       }
       break;
     default: Serial.println(UNDEFINED_COMMAND + message[0] + "»");
@@ -106,6 +122,7 @@ void loop() {
     isMessage = true;
     byte codeLetter = Serial.read();
     if (codeLetter == 32) {
+      if (message[countSpace]!="")
       countSpace++;
     } else {
       message[countSpace] = message[countSpace] + char(codeLetter);
@@ -115,5 +132,5 @@ void loop() {
     hablerCommands();
     cleanBuf();
   }
-  delay(100);
+  delay(3);
 }
