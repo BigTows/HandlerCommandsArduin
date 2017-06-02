@@ -161,7 +161,7 @@ void loop() {
       if (message[countSpace] != "")
         countSpace++;
     } else {
-      message[countSpace] = message[countSpace] + char(codeLetter);
+      message[countSpace] +=  char(codeLetter);
     }
   } else if (isMessage && Serial.available() <= 0) {
     isMessage = false;
