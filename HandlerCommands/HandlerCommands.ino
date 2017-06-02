@@ -1,15 +1,25 @@
 /**
-   Constats for return after handler command
+   Constants for return after handler command
 */
-const String HELP_COMMAND = "Hi, list commands:\nblink <count> - Blink pin 13 :) \nversion - view version handler\npicture - print PICTURE WOOWOWOWOOW";
 const String VERSION_COMMAND = "Version handler: 0.2";
 const String UNDEFINED_COMMAND = "Undefined command «";
 
+/**
+ * Constants info message
+ */
+const String READY_SYSTEM="-*-*-*-*-*-*- SYSTEM READY -*-*-*-*-*-*-";
+/**
+ * Debug mode
+ */
+int debugMode = 0;
+ 
 
+bool started = false;
 /**
 
 */
 String commands[20];
+String commandsDescription[20];
 int countCommands = 0;
 
 bool isMessage;
@@ -17,27 +27,36 @@ String message [20];
 int countSpace = 0;
 
 
+void debug(String message){
+  if (debugMode==1) Serial.println(message);
+}
+
 void setup() {
   isMessage = false;
   pinMode(13, 1);
   Serial.begin(9600);
-  registerCommand("help");
-  registerCommand("blink");
-  registerCommand("version");
-  registerCommand("picture");
-  registerCommand("print");
-  registerCommand("mul");
-  registerCommand("div");
+  registerCommand("help","- view all commands");
+  registerCommand("blink","<count> - Blink pin 13");
+  registerCommand("version","- view version handler");
+  registerCommand("picture","");
+  registerCommand("print","<messages[]> - print array messages");
+  registerCommand("mul","<operand> <operand> - print mul two operands");
+  registerCommand("div","");
+  if (!started){
+    Serial.println(READY_SYSTEM);
+    started=true;
+  }
 }
 
 
-void registerCommand(String name) {
+void registerCommand(String name, String description) {
   if (getIDCommand(name) == -1) {
     commands[countCommands] = name;
+    commandsDescription[countCommands] = description;
     countCommands++;
-    Serial.println("Register command: " + name);
+    debug("Register command: " + name);
   } else {
-    Serial.println("This " + name + " already registered");
+    debug("This " + name + " already registered");
   }
 }
 
@@ -63,7 +82,9 @@ void hablerCommands() {
   switch (getIDCommand(message[0])) {
     //Command help
     case 0: {
-        Serial.println(HELP_COMMAND);
+        for (int i=0;i<countCommands;i++){
+          Serial.println(String(i+1)+") "+commands[i]+" "+commandsDescription[i]);
+        }
       }
       break;
     case 1: {
@@ -111,12 +132,12 @@ void hablerCommands() {
         Serial.println("");
       }
       break;
-      case 5:{
+    case 5: {
         Serial.println(message[1].toInt()*message[2].toInt());
       }
       break;
-       case 6:{
-        Serial.println(message[1].toInt()/message[2].toInt());
+    case 6: {
+        Serial.println(message[1].toInt() / message[2].toInt());
       }
       break;
     default: Serial.println(UNDEFINED_COMMAND + message[0] + "»");
