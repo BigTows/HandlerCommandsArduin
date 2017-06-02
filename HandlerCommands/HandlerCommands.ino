@@ -5,16 +5,14 @@ const String VERSION_COMMAND = "Version handler: 0.4";
 const String UNDEFINED_COMMAND = "Undefined command «";
 
 /**
- * Constants info message
- */
-const String READY_SYSTEM="-*-*-*-*-*-*- SYSTEM READY -*-*-*-*-*-*-";
+   Constants info message
+*/
+const String READY_SYSTEM = "-*-*-*-*-*-*- SYSTEM READY -*-*-*-*-*-*-";
 /**
- * Debug mode
- */
+   Debug mode
+*/
 int debugMode = 0;
- 
 
-bool started = false;
 /**
 
 */
@@ -27,25 +25,22 @@ String message [20];
 int countSpace = 0;
 
 
-void debug(String message){
-  if (debugMode==1) Serial.println(message);
+void debug(String message) {
+  if (debugMode == 1) Serial.println(message);
 }
 
 void setup() {
-    Serial.begin(9600);
+  Serial.begin(9600);
   isMessage = false;
   pinMode(13, 1);
-  registerCommand("help","- view all commands");
-  registerCommand("blink","<count> - Blink pin 13");
-  registerCommand("version","- view version handler");
-  registerCommand("picture","");
-  registerCommand("print","<messages[]> - print array messages");
-  registerCommand("mul","<operand> <operand> - print mul two operands");
-  registerCommand("div","");
-  if (!started){
-    Serial.println(READY_SYSTEM);
-    started=true;
-  }
+  registerCommand("help", "- view all commands");
+  registerCommand("blink", "<count> - Blink pin 13");
+  registerCommand("version", "- view version handler");
+  registerCommand("picture", "");
+  registerCommand("print", "<messages[]> - print array messages");
+  registerCommand("mul", "<operand> <operand> - print mul two operands");
+  registerCommand("div", "");
+  Serial.println(READY_SYSTEM);
 }
 
 
@@ -82,8 +77,8 @@ void hablerCommands() {
   switch (getIDCommand(message[0])) {
     //Command help
     case 0: {
-        for (int i=0;i<countCommands;i++){
-          Serial.println(String(i+1)+") "+commands[i]+" "+commandsDescription[i]);
+        for (int i = 0; i < countCommands; i++) {
+          Serial.println(String(i + 1) + ") " + commands[i] + " " + commandsDescription[i]);
         }
       }
       break;
