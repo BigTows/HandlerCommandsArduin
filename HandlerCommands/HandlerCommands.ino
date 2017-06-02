@@ -1,8 +1,8 @@
 /**
    Constats for return after handler command
 */
-const String HELP_COMMAND = "Hi, list commands:\nblink - try :) \nversion - view version handler";
-const String VERSION_COMMAND = "Version handler: 0.1";
+const String HELP_COMMAND = "Hi, list commands:\nblink <count> - Blink pin 13 :) \nversion - view version handler";
+const String VERSION_COMMAND = "Version handler: 0.2";
 const String UNDEFINED_COMMAND = "Undefined command «";
 
 
