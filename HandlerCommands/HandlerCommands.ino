@@ -13,7 +13,7 @@ String commands[20];
 int countCommands = 0;
 
 bool isMessage;
-String message[20];
+String message [20];
 int countSpace = 0;
 
 
@@ -25,7 +25,9 @@ void setup() {
   registerCommand("blink");
   registerCommand("version");
   registerCommand("picture");
-
+  registerCommand("print");
+  registerCommand("mul");
+  registerCommand("div");
 }
 
 
@@ -65,43 +67,56 @@ void hablerCommands() {
       }
       break;
     case 1: {
-      if (message[1]=="") message[1]="1";
-       for (int i=0;i<message[1].toInt();i++){
-        digitalWrite(13,1);
-         delay(250);
-        digitalWrite(13,0);
-        delay(100);
-       }
-       Serial.println("I blinked");
+        if (message[1] == "") message[1] = "1";
+        for (int i = 0; i < message[1].toInt(); i++) {
+          digitalWrite(13, 1);
+          delay(250);
+          digitalWrite(13, 0);
+          delay(100);
+        }
+        Serial.println("I blinked");
       }
       break;
     case 2: {
         Serial.println(VERSION_COMMAND);
       }
       break;
-      case 3:{
-       /* String text = "";
-        String t = "";
-        for (int i=0;i<=12;i++){
-          text+=" ";
-          for (int j=0;j<=1;j++){
-            t+="*";
-            Serial.print(text+t);
-          }
-
-          Serial.println("");
-        }
-         t="";
-         for (int i=12;i>=0;i--){
-          text[i-1]="";
-          for (int j=1;j>=0;j--){
+    case 3: {
+        /* String text = "";
+          String t = "";
+          for (int i=0;i<=12;i++){
+           text+=" ";
+           for (int j=0;j<=1;j++){
              t+="*";
-            Serial.print(text+t);
-          }
+             Serial.print(text+t);
+           }
 
-          Serial.println("");
-        }
-        Serial.println("end print");*/
+           Serial.println("");
+          }
+          t="";
+          for (int i=12;i>=0;i--){
+           text[i-1]="";
+           for (int j=1;j>=0;j--){
+              t+="*";
+             Serial.print(text+t);
+           }
+
+           Serial.println("");
+          }
+          Serial.println("end print");*/
+      }
+      break;
+    case 4: {
+        for (int i = 1; i <= countSpace; i++) Serial.print(message[i] + " ");
+        Serial.println("");
+      }
+      break;
+      case 5:{
+        Serial.println(message[1].toInt()*message[2].toInt());
+      }
+      break;
+       case 6:{
+        Serial.println(message[1].toInt()/message[2].toInt());
       }
       break;
     default: Serial.println(UNDEFINED_COMMAND + message[0] + "»");
@@ -122,8 +137,8 @@ void loop() {
     isMessage = true;
     byte codeLetter = Serial.read();
     if (codeLetter == 32) {
-      if (message[countSpace]!="")
-      countSpace++;
+      if (message[countSpace] != "")
+        countSpace++;
     } else {
       message[countSpace] = message[countSpace] + char(codeLetter);
     }
