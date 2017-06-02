@@ -1,7 +1,7 @@
 /**
    Constants for return after handler command
 */
-const String VERSION_COMMAND = "Version handler: 0.2";
+const String VERSION_COMMAND = "Version handler: 0.4";
 const String UNDEFINED_COMMAND = "Undefined command «";
 
 /**
@@ -32,9 +32,9 @@ void debug(String message){
 }
 
 void setup() {
+    Serial.begin(9600);
   isMessage = false;
   pinMode(13, 1);
-  Serial.begin(9600);
   registerCommand("help","- view all commands");
   registerCommand("blink","<count> - Blink pin 13");
   registerCommand("version","- view version handler");
